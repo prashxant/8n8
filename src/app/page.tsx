@@ -1,4 +1,4 @@
-import { caller, getQueryClient, trpc } from "@/trpc/server";
+import { getQueryClient, trpc } from "@/trpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Client } from "./client";
 
@@ -16,5 +16,4 @@ void queryClient.prefetchQuery(trpc.getUsers.queryOptions())
     </div>
   )
 }
-
 export default Page
