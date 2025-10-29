@@ -1,6 +1,5 @@
 "use client"
 
-
 import { useForm } from "react-hook-form"
 import z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,14 +9,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/router";
+
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 
 
 
 const registerSchema = z.object({
-  email: z.email("Please enter a valid email address"),
+  email: z.string().email("Please enter a valid email address"),
   password: z.string().min(1,"Password requried"),
   confirmpassword: z.string()
 
@@ -51,7 +51,7 @@ export function SigninForm  (){
       password: values.password,
       callbackURL:"/"
     },{
-     onSubmit:()=>{
+     onSuccess:()=>{
         router.push("/")
       },
       onError:(ctx)=> {
@@ -118,7 +118,7 @@ export function SigninForm  (){
                   name="password"
                   render={({field }) =>(
                     <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>Password</FormLabel>
                     <FormControl>
                     <Input
                     type="Password"
