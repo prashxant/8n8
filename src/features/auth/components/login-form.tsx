@@ -9,6 +9,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 
 
@@ -23,6 +26,8 @@ type LoginFormValues = z.infer<typeof loginSchema>
 
 export function LoginForm  (){
 
+  const router = useRouter();
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues:{
@@ -33,7 +38,18 @@ export function LoginForm  (){
   });
 
   const onSubmit = async (values : LoginFormValues) => {
-    console.log(values)
+      await authClient.signIn.email( {
+      email: values.email,
+      password: values.password,
+      callbackURL:"/"
+    },{
+     onSuccess:()=>{
+        router.push("/")
+      },
+      onError:(ctx)=> {
+        toast.error(ctx.error.message)
+      }
+    })
   }
   const isPending = form.formState.isSubmitting;
 
@@ -122,6 +138,7 @@ export function LoginForm  (){
           </Form>
         </CardContent>
       </Card>
+
 
     </div>
   )
