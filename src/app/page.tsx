@@ -1,24 +1,23 @@
-
-
-
-
 import { requireAuth } from "@/lib/auth-utils";
 import { Logout } from "./Logout";
-import { authClient } from "@/lib/auth-client";
 import { caller } from "@/trpc/server";
 
 const Page = async () => {
-await requireAuth()
+  await requireAuth()
 
-const data = await caller.getUsers()
+  const data = await caller.getUsers()
 
-  return(
-    <div className="min-h-screen flex-col min-w-screen justify-center items-center flex ">
-   protected server
-   <div className="w-4xl">
-    {JSON.stringify(data,null,2)}
-    <Logout/>
-   </div>
+  return (
+    <div className="min-h-screen flex-col min-w-screen justify-center items-center flex">
+      <h1 className="text-2xl font-bold mb-4">Protected Server Page</h1>
+      <div className="w-4xl max-w-4xl">
+        <pre className="bg-gray-100 p-4 rounded-lg overflow-auto">
+          {JSON.stringify(data, null, 2)}
+        </pre>
+        <div className="mt-4">
+          <Logout />
+        </div>
+      </div>
     </div>
   )
 }
