@@ -12,6 +12,7 @@ import { authClient } from "@/lib/auth-client";
 
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 
 
@@ -84,6 +85,7 @@ export function SigninForm  (){
                   type="button"
                   disabled={isPending}
                   >
+                  <Image src='/git.svg' width={20} height={20}alt="githhub" />
                     Continue With Github
                   </Button>
                   <Button
@@ -92,6 +94,7 @@ export function SigninForm  (){
                   type="button"
                   disabled={isPending}
                   >
+                  <Image src='/goo.svg' height={20} width={20} alt="google" />
                     Continue With Google
                   </Button>
 

@@ -12,6 +12,7 @@ import Link from "next/link"
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import Image from "next/image";
 
 
 
@@ -75,6 +76,7 @@ export function LoginForm  (){
                   type="button"
                   disabled={isPending}
                   >
+                    <Image src='/git.svg' width={20} height={20} alt="githhub" />
                     Continue With Github
                   </Button>
                   <Button
@@ -83,6 +85,7 @@ export function LoginForm  (){
                   type="button"
                   disabled={isPending}
                   >
+                    <Image src='/goo.svg' width={20} height={20} alt="google" />
                     Continue With Google
                   </Button>
 
