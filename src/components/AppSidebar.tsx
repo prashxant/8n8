@@ -14,8 +14,9 @@ import {
 } from "./ui/sidebar"
 import Link from "next/link"
 import Image from "next/image"
-import { useRouter } from "next/router"
-import { usePathname } from "next/navigation"
+
+import { usePathname, useRouter } from "next/navigation"
+import { authClient } from "@/lib/auth-client"
 
 const menuItems = [
   {
@@ -42,7 +43,7 @@ const menuItems = [
 
 const AppSidebar = () => {
 
-  // const router  = useRouter();
+  const router  = useRouter()
   const pathname = usePathname();
 
   return (
@@ -66,6 +67,7 @@ const AppSidebar = () => {
         {menuItems.map((group) => (
           <SidebarGroup key={group.title}>
             <SidebarGroupContent>
+              <SidebarMenu>
               {group.items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
@@ -85,6 +87,7 @@ const AppSidebar = () => {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+              </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
@@ -93,7 +96,7 @@ const AppSidebar = () => {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-            tooltip={"Upgrade to pro"}
+            tooltip="Upgrade to pro"
             className="h-10 px-4 gap-x-4"
             onClick={()=>{}}
             >
@@ -103,12 +106,28 @@ const AppSidebar = () => {
           </SidebarMenuItem>
            <SidebarMenuItem>
             <SidebarMenuButton
-            tooltip={"Upgrade to pro"}
+            tooltip="Billing Portal"
             className="h-10 px-4 gap-x-4"
             onClick={()=>{}}
             >
               <CreditCardIcon className="size-4"/>
               <span>Billing Portal</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+            tooltip="Signout"
+            className="h-10 px-4 gap-x-4"
+            onClick={()=>{authClient.signOut({
+              fetchOptions:{
+                onSuccess:() =>{
+                  router.push('/login')
+                },
+              }
+            })}}
+            >
+              <CreditCardIcon className="size-4"/>
+              <span>Sign Out</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
